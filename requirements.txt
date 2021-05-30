@@ -5,6 +5,6 @@ django-heroku
 jamdict >= 0.1a11.post1
 jamdict-data
 chirptext>=0.2a4.post2
-Janome==0.4.1
+igo-python==1.0.0
 jaconv==0.3
 speach >= 0.1a9
