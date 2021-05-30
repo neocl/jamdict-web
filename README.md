@@ -7,6 +7,8 @@ There is a demo instance of Jamdict-web - Japanese Reading Assistant online if y
 
 https://jamdict.herokuapp.com/
 
+![Jamdict-web screenshot](https://raw.githubusercontent.com/wiki/neocl/jamdict-web/images/jamdict-screenshot.png)
+
 ## Local development
 
 You can run this software locally on your computer like this
