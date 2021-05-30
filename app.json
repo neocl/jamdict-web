@@ -1,0 +1,22 @@
+{
+  "name": "Jamdict web - Japanese Reading Assistant",
+  "description": "Japanese Reading Assistant with morphological analyser, Japanese-English dictionary, Kanji dictionary, and Japanese Names dictionary",
+  "image": "heroku/python",
+  "repository": "https://github.com/neocl/jamdict-web",
+  "keywords": ["python", "django"],
+  "addons": [],
+  "env": {
+    "SECRET_KEY": {
+      "description": "The secret key for the Django application.",
+      "generator": "secret"
+    }
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "python manage.py collectstatic --noinput",
+        "test": "python manage.py test"
+      }
+    }
+  }
+}
