@@ -2,7 +2,7 @@ django>=3.2
 whitenoise
 gunicorn
 django-heroku
-jamdict >= 0.1a11
+jamdict >= 0.1a11.post1
 jamdict-data
 chirptext>=0.2a4
 Janome==0.4.1
