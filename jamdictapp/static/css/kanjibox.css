@@ -8,7 +8,6 @@
 }
 @font-face {
     font-family: KanjiStrokeOrder;
-    src: url(KanjiStrokeOrders_v4.004.ttf);
     src: url(KanjiStrokeOrders.ttf);
 }
 .kjb_text {
