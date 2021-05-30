@@ -1,0 +1,47 @@
+body {
+    padding: 20px;
+}
+.github-fork-ribbon:before {
+    background-color: #090;
+}
+h1 {
+    color: #090;
+    margin-bottom: 25px;
+}
+.kanji-info {
+    font-weight: bold;
+}
+.red-icon {
+    color: red;
+    padding: 5px;
+}
+.red-icon:hover {
+    color: white;
+    background-color: red;
+    padding: 5px;
+}
+.p-1 {
+    margin: 3px;
+}
+.content-word {
+    background-color: white;
+    color: green;
+}
+.content-word:hover {
+    color: green;
+    background-color: cornsilk;
+}
+.tooltip.show p {
+    text-align:left;
+}
+.tooltip.show p item {
+    text-align:left;
+    display: block;
+}
+.ol_reversed {
+    display: flex;
+    flex-direction: column-reverse;
+}
+#nav-results {
+    padding-top: 10px;
+}

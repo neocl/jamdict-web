@@ -1,0 +1,385 @@
+{% extends 'jamdictapp/base.html' %}
+{% load static %}
+{% comment %}
+This code is a part of jamdict-web library: https://github.com/neocl/jamdict-web
+:copyright: (c) 2021 Le Tuan Anh (tuananh.ke@gmail.com)
+:license: MIT, see LICENSE for more details.
+{% endcomment %}
+  
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/kanjibox.css' %}" />
+{% endblock %}
+
+{% block content %}
+<!-- Jamdict vue.js -->    
+<content id="jam-app">
+  
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#"></a>
+    
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-input-tab" data-toggle="tab" href="#nav-input" role="tab" aria-controls="nav-input" aria-selected="true">Input</a>
+      <a class="nav-item nav-link" id="nav-results-tab" data-toggle="tab" href="#nav-results" role="tab" aria-controls="nav-results" aria-selected="false">Results</a>
+    </div>
+    
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#staticBackdrop">Credit</a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="form-inline my-2 my-lg-0">
+      <div class="custom-control custom-checkbox mx-2">
+        <input type="checkbox" class="custom-control-input" id="chkRomaji" v-model="romaji">
+        <label class="custom-control-label" for="chkRomaji">Romanize</label>
+      </div>
+      <div class="custom-control custom-checkbox mx-2">
+        <input type="checkbox" class="custom-control-input" id="chkFurigana" v-model="furigana">
+        <label class="custom-control-label" for="chkFurigana">Furigana</label>
+      </div>
+      
+      <input class="form-control mr-sm-2" type="search"
+             v-model="query" @keyup.enter="search"
+             placeholder="Search" aria-label="Search">
+      <div class="custom-control custom-checkbox mx-2">
+        <input type="checkbox" @keyup.enter="search"
+               class="custom-control-input" id="chkStrict" v-model="isStrict">
+        <label class="custom-control-label" for="chkStrict">Exact match</label>
+      </div>
+      
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button"
+              @click="search">Search</button>
+    </div>
+  </nav>
+  <!-- Navbar end -->
+  
+  <!-- About modal -->
+  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Credit</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <span class="font-weight-bold">Japanese Reading Assistant</span> was developed by <a href="https://github.com/letuananh" target="_blank">Le Tuan Anh</a> using the following products:
+          <dl class="row my-2">
+            <dt class="col-sm-4"><a href="https://github.com/neocl/jamdict" target="_blank">Jamdict</a></dt>
+            <dd class="col-sm-8">Japanese dictionary package for Python 3 <span class="text-muted">(MIT License)</span></dd>            
+            
+            <dt class="col-sm-4"><a href="https://www.edrdg.org/wiki/index.php/Main_Page#The_JMdict.2FEDICT_Project" target="_blank">JMDict</a></dt>
+            <dd class="col-sm-8">a freely-usable general Japanese electronic dictionary
+              <a href="https://www.edrdg.org/edrdg/licence.html" target="_blank" class="text-muted">(CC BY-SA 3.0 license)</a>
+            </dd>
+            
+            <dt class="col-sm-4"><a href="https://www.edrdg.org/wiki/index.php/Main_Page#The_ENAMDICT.2FJMnedict_Project" target="_blank">JMnedict</a></dt>
+            <dd class="col-sm-8">740,000 Japanese proper names (place, people, company, product, etc.)
+              <a href="https://www.edrdg.org/edrdg/licence.html" target="_blank" class="text-muted">(CC BY-SA 3.0 license)</a>
+            </dd>
+            
+            <dt class="col-sm-4"><a href="http://www.edrdg.org/wiki/index.php/Main_Page#The_KANJIDIC_Project" target="_blank">KANJIDIC</a></dt>
+            <dd class="col-sm-8">a comprehensive kanji database
+              <a href="https://www.edrdg.org/edrdg/licence.html" target="_blank" class="text-muted">(CC BY-SA 3.0 license)</a>
+            </dd>
+            
+            <dt class="col-sm-4"><a href="https://pypi.org/project/Janome/" target="_blank">Janome</a></dt>
+            <dd class="col-sm-8">Japanese morphological analysis engine
+              <a href="https://github.com/mocobeta/janome/blob/master/LICENSE.txt" class="text-muted" target="_blank">
+                (Apache License 2.0)</a>
+            </dd>
+            
+            <dt class="col-sm-4"><a href="https://www.nihilist.org.uk" target="_blank">Kanji Stroke Order</a></dt>
+            <dd class="col-sm-8">Japanese font with writing stroke order (Version 4.004)
+              <a href="https://www.nihilist.org.uk" target="_blank" class="text-muted">(BSD License)</a>
+            </dd>
+            
+            <dt class="col-sm-4"><a href="https://pypi.org/project/jaconv/" target="_blank">jaconv</a></dt>
+            <dd class="col-sm-8">interconverter for Hiragana, Katakana, Hankaku (half-width character) and Zenkaku (full-width character)
+              <span class="text-muted">(MIT License)</span>
+            </dd>
+            
+            <dt class="col-sm-4"><a href="https://getbootstrap.com/docs/4.6" target="_blank">Bootstrap 4.6</a></dt>
+            <dd class="col-sm-8">Free and open-source CSS framework
+              <span class="text-muted">(MIT License)</span>
+            </dd>
+            
+            <dt class="col-sm-4"><a href="https://vuejs.org" target="_blank">Vue.js</a></dt>
+            <dd class="col-sm-8">open-source front end JavaScript framework
+              <span class="text-muted">(MIT License)</span>
+            </dd>
+          </dl>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- About end -->
+  
+  
+  <div>
+    <div class="row align-items-start my-2">
+      <div class="col-sm-12 col-md-7 align-items-start">
+        <!-- <nav>
+             <div class="nav nav-tabs" id="nav-tab" role="tablist">
+             <a class="nav-item nav-link active" id="nav-input-tab" data-toggle="tab" href="#nav-input" role="tab" aria-controls="nav-input" aria-selected="true">Input</a>
+             <a class="nav-item nav-link" id="nav-results-tab" data-toggle="tab" href="#nav-results" role="tab" aria-controls="nav-results" aria-selected="false">Results</a>
+             </div>
+             </nav> -->
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-input" role="tabpanel" aria-labelledby="nav-input-tab">
+            <textarea id="text" name="text" style="width:100%;" rows="10" v-model="text"></textarea>
+            <br/>
+            <input class="btn btn-primary btn-sm" type="button" value="Help me read" @click="parse"></input>
+          </div>
+          <div class="tab-pane fade" id="nav-results" role="tabpanel" aria-labelledby="nav-results-tab">
+            <div v-if="sents && sents.length > 0">
+              <div v-for="sent in sents" class="d-flex align-content-start flex-wrap">
+                <div class="p-1" v-bind:class="{'content-word': !token.ignore}" data-html="true"
+                     @click="lookupToken(token)"
+                     v-for="token in sent.tokens"
+                     v-tooltip:bottom="makeTooltip(token)">
+                  <span v-if="romaji">
+                    <ruby>
+                      <rb>[[ token.text ]]</rb>
+                      <rt>[[ token.romaji ]]</rt>
+                    </ruby>
+                  </span>
+                  <span v-else-if="furigana && token.furi" v-html="token.furi">
+                  </span>
+                  <span v-else>[[ token.text ]]</span>
+                </div>
+              </div>
+            </div>
+            <div v-else>
+              Nothing was parsed.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-5 align-items-start">
+        <div v-if="results">
+          <!-- entries -->
+          <div v-for="entry in results.entries">
+            <div>
+              <span class="badge badge-pill badge-info"
+                    :title="entry.idseq"
+                    @click="lookupText('id#' + entry.idseq)">
+                Word</span>
+              <!-- kanji entries -->
+              <span class="text-primary" v-if="entry.kanji">
+                <span v-for="(kanji, idx) in entry.kanji">
+                  <span v-if="idx > 0">, </span>
+                  <span @click="lookupText(kanji.text)">[[ kanji.text ]]</span></span>
+              </span>
+              <!-- kana entries -->
+              <span class="text-primary" v-if="entry.kana">
+                <span v-for="(kana, idx) in entry.kana">
+                  <span v-if="idx > 0">, </span>
+                  <span @click="lookupText(kana.text)">[[ kana.text ]]</span></span>
+              </span>
+            </div>          
+            <ol>
+              <li v-for="(sense, sid) in entry.senses">
+                <span v-for="(gloss, gidx) in sense.SenseGloss"><span v-if="gidx > 0">, </span>[[gloss.text]] </span>
+                <span class="badge badge-info mx-1" v-for="pos in sense.pos"  v-tooltip:bottom="pos.desc">
+                  [[ pos.text ]]
+                </span>
+              </li>
+            </ol>
+          </div>
+          <!-- characters -->
+          <div v-if="results.chars && results.chars.length">
+            <h3>Characters</h3>
+            <div class="row" v-for="char in results.chars">
+              <div class="col-sm-3 col-xl-2">
+                <svg height="100" width="100">
+                  <rect width="94" height="94" x="2" y="2" style="fill:rgb(255,255,255);stroke-width:1;stroke:rgb(255,0,0)" />
+                  <line x1="2" y1="50" x2="97" y2="50" style="stroke:rgb(255,0,0);stroke-width:1" />
+                  <line x1="50" y1="2" x2="50" y2="97" style="stroke:rgb(255, 0, 0);stroke-width:1" />
+                  <text x="49" y="83" class="kjsvg_text_md">[[ char.literal ]]</text>
+                </svg>                
+              </div>
+              <div class="col-sm-9 col-xl-10">
+                <div class="border-bottom border-success ml-1">
+                  <span class="text-primary jmdict-char" v-if="false">[[ char.literal ]]</span>
+                  <span v-if="char.stroke_count"><span class="kanji-info ml-2">Strokes:</span> [[ char.stroke_count ]]</span>
+                  <span v-if="char.grade"><span class="kanji-info ml-2">Grade:</span> [[ char.grade ]]</span>
+                  <span v-if="char.jlpt"><span class="kanji-info ml-2">JLPT:</span> [[ char.jlpt ]]</span>
+                </div>
+                <div v-if="char.rm" class="ml-1">
+                  <div v-for="rm in char.rm">
+                    <div>
+                      <span v-for="(reading, idx) in rm.readings" class="mx-1">
+                        <span :title="reading.type" :class="{'text-primary': reading.type.startsWith('ja_'), 'text-muted': !reading.type.startsWith('ja_')}">
+                          [[ reading.value ]] 
+                        </span>
+                      </span>
+                    </div>
+                    <div>
+                      <span v-for="(meaning, idx) in rm.meanings"><span v-if="idx > 0">, </span>
+                        <span :title="meaning.m_lang" :class="{'text-primary': !meaning.m_lang, 'text-muted': meaning.m_lang}">[[ meaning.value ]]</span>
+                      </span>
+                    </div>
+                    
+                  </div>
+                </div>                
+              </div>
+            </div>
+          </div>
+          <div v-if="results.names.length">
+            <h3>Names</h3>
+            <div v-for="entry in results.names">
+              <div>
+                <span class="badge badge-pill badge-info"
+                      :title="entry.idseq"
+                      @click="lookupText('id#' + entry.idseq)">
+                  Name</span>
+                <!-- kanji entries -->
+                <span class="text-primary" v-if="entry.kanji">
+                  <span v-for="(kanji, idx) in entry.kanji">
+                    <span v-if="idx > 0">, </span>
+                    <span @click="lookupText(kanji.text)">[[ kanji.text ]]</span></span>
+                </span>
+                <!-- kana entries -->
+                <span class="text-primary" v-if="entry.kana">
+                  <span v-for="(kana, idx) in entry.kana">
+                    <span v-if="idx > 0">, </span>
+                    <span @click="lookupText(kana.text)">[[ kana.text ]]</span></span>
+                </span>                
+                <span v-if="entry.senses && entry.senses.length == 1">
+                  <span v-for="(gloss, gidx) in entry.senses[0].SenseGloss"><span v-if="gidx > 0">, </span>[[gloss.text]] </span>
+                  <span v-if="entry.senses[0].name_type" class="text-secondary">([[ entry.senses[0].name_type.join(", ") ]])</span>
+                </span>
+              </div>          
+              <ol v-if="entry.senses && entry.senses.length > 1">
+                <li v-for="sense in entry.senses"><span v-for="(gloss, gidx) in sense.SenseGloss"><span v-if="gidx > 0">, </span>[[gloss.text]] </span><span v-if="sense.name_type" class="text-secondary">([[ sense.name_type.join(", ") ]])</span></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</content>
+{% endblock %}
+
+{% block script %}
+<script>
+ Vue.directive('tooltip', function(el, binding){
+   $(el).tooltip({
+     title: binding.value,
+     placement: binding.arg,
+     html: true,
+     trigger: 'hover'
+   })
+ });
+ $(function(){
+   var app = new Vue({
+     el: "#jam-app",
+     delimiters: ['[[', ']]'],
+     data: {
+       text: '山田さんは猫が好きです。\n\n水をよく飲みません。\n\n龍さんの日本の自転車は世界中一番',
+       vocab_reverse: false,
+       sents: null,
+       pong: "",
+       query: "gengogaku",
+       isStrict: false,
+       furigana: true,
+       romaji: false,
+       results: null,
+       wordlist: [],
+       wordmap: {}
+     },
+     methods: {
+       parse: function() {
+         var text = app.text;
+         $.ajax({
+           url: "{% url 'japi_parse_doc' %}",
+           data: {
+             text: text,
+             csrfmiddlewaretoken: '{{ csrf_token }}'
+           },
+           method: "POST",
+           dataType: "jsonp"
+         }).done(function(json){
+           json.sents.forEach(function(sent){
+             if (sent.tokens) {
+               sent.tokens.forEach(function(token){
+                 if (['記号', '助詞'].indexOf(token.pos.substring(0, 2)) >= 0){
+                   token.ignore = true;
+                 }
+                 else if (['助動詞'].indexOf(token.pos) >= 0) {
+                   token.ignore = true;
+                 }
+               });
+             }
+           });
+           app.sents = json.sents;
+           $('#nav-tab a[href="#nav-results"]').tab('show');
+         }).fail(function(jqxhr){
+           console.log("Error: " + jqxhr);
+         });
+       },
+       makeTooltip: function(token) {
+         var tt = [];
+         if (token.lemma && token.lemma != token.text) {
+           tt.push("<span>Lemma: " + token.lemma + "</span>"); 
+         }
+         if (token.pos) {
+           tt.push("<span>POS: " + token.pos + "</span>"); 
+         }
+         if (token.tags){
+           token.tags.forEach(function(item, idx){
+             if (item.type != 'furi'){
+               tt.push("<span>" + item.type + ": " + item.value + "</span>");
+             }
+           });
+         }
+         return tt.join('<br/>');
+       },
+       lookupToken: function(token){
+         app.query = (token.lemma && token.lemma != "*") ? token.lemma : token.text;
+         app.search();
+       },
+       lookupText: function(text) {
+         app.query = text;
+         app.search();
+       },
+       search: function() {
+         // search jamdol
+         $.ajax({
+           url: "{% url 'japi_lookup' %}",
+           data: {
+             query: app.query,
+             strict: app.isStrict,
+             csrfmiddlewaretoken: '{{ csrf_token }}'
+           },
+           method: "POST",
+           dataType: "jsonp"
+         }).done(function(json){
+           app.results = json;
+         }).fail(function(jqxhr){
+           console.log("Error: " + jqxhr);
+         });
+       }
+       // end of method list
+     }
+   });
+ });
+ 
+ $(function () {
+   $('[data-toggle="tooltip"]').tooltip();
+ })
+</script>
+{% endblock %}

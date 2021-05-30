@@ -1,0 +1,10 @@
+django>=3.2
+whitenoise
+gunicorn
+django-heroku
+jamdict >= 0.1a11
+jamdict-data
+chirptext>=0.2a4
+Janome==0.4.1
+jaconv==0.3
+speach >= 0.1a9
