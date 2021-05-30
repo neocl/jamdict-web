@@ -27,6 +27,23 @@ python manage.py runserver
 
 ## Credit
 
-Jamdict-web was developed based on the following products:
+**Jamdict-web / Japanese Reading Assistant** was developed by [Le Tuan Anh](https://github.com/letuananh) using the following products:
 
-- 
+[Jamdict](https://github.com/neocl/jamdict): Japanese dictionary package for Python 3 (MIT License)
+
+[JMDict](https://www.edrdg.org/wiki/index.php/Main_Page#The_JMdict.2FEDICT_Project): a freely-usable general Japanese electronic dictionary [(CC BY-SA 3.0 License)](https://www.edrdg.org/edrdg/licence.html)
+
+[JMnedict](https://www.edrdg.org/wiki/index.php/Main_Page#The_ENAMDICT.2FJMnedict_Project): 740,000 Japanese proper names (place, people, company, product, etc.) [(CC BY-SA 3.0 License)](https://www.edrdg.org/edrdg/licence.html)
+
+[KANJIDIC](http://www.edrdg.org/wiki/index.php/Main_Page#The_KANJIDIC_Project): a comprehensive kanji database [(CC BY-SA 3.0 license)](https://www.edrdg.org/edrdg/licence.html)
+
+[Igo-python](https://pypi.org/project/igo-python/): a Python port of Igo Japanese morphological analyzer (MIT License)
+
+[Kanji Stroke Order](https://www.nihilist.org.uk): Japanese font with writing stroke order (Version 4.004) [(BSD License)](https://www.nihilist.org.uk)
+
+[jaconv](https://pypi.org/project/jaconv/): interconverter for Hiragana, Katakana, Hankaku (half-width character) and Zenkaku (full-width character) (MIT License)
+
+[Bootstrap 4.6](https://getbootstrap.com/docs/4.6): Free and open-source CSS framework (MIT License)
+
+[Vue.js](https://vuejs.org): open-source front end JavaScript framework (MIT License)
+
