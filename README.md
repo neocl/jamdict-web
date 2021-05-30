@@ -47,3 +47,5 @@ python manage.py runserver
 
 [Vue.js](https://vuejs.org): open-source front end JavaScript framework (MIT License)
 
+[Sample text](https://www.aozora.gr.jp/cards/000148/files/799_14972.html): from「夢十夜」by 夏目漱石
+
