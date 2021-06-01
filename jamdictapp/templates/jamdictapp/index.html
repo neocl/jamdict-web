@@ -155,7 +155,12 @@ This code is a part of jamdict-web library: https://github.com/neocl/jamdict-web
                   </span>
                   <span v-else-if="furigana && token.furi" v-html="token.furi">
                   </span>
-                  <span v-else>[[ token.text ]]</span>
+                  <span v-else>
+                    <ruby>
+                      <rb>[[ token.text ]]</rb>
+                      <rt>&nbsp;</rt>
+                    </ruby>
+                  </span>
                 </div>
               </div>
             </div>
