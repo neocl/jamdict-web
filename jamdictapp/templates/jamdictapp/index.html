@@ -8,6 +8,11 @@ This code is a part of jamdict-web library: https://github.com/neocl/jamdict-web
   
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/kanjibox.css' %}" />
+<style>
+ textarea{
+   border: None;
+ }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -21,15 +26,13 @@ This code is a part of jamdict-web library: https://github.com/neocl/jamdict-web
     </button>
     <a class="navbar-brand" href="#"></a>
     
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-input-tab" data-toggle="tab" href="#nav-input" role="tab" aria-controls="nav-input" aria-selected="true">Input</a>
-      <a class="nav-item nav-link" id="nav-results-tab" data-toggle="tab" href="#nav-results" role="tab" aria-controls="nav-results" aria-selected="false">Results</a>
-    </div>
-    
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#staticBackdrop">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#helpModal">Help</a>
         </li>
       </ul>
     </div>
@@ -60,11 +63,11 @@ This code is a part of jamdict-web library: https://github.com/neocl/jamdict-web
   <!-- Navbar end -->
   
   <!-- About modal -->
-  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal fade" id="aboutModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">About</h5>
+          <h5 class="modal-title" id="aboutModalLabel">About</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -76,7 +79,7 @@ This code is a part of jamdict-web library: https://github.com/neocl/jamdict-web
             <dd class="col-sm-8">Japanese dictionary package for Python 3 <span class="text-muted">(MIT License)</span></dd>            
             
             <dt class="col-sm-4"><a href="https://www.edrdg.org/wiki/index.php/Main_Page#The_JMdict.2FEDICT_Project" target="_blank">JMDict</a></dt>
-            <dd class="col-sm-8">a freely-usable general Japanese electronic dictionary
+            <dd class="col-sm-8">A freely-usable general Japanese electronic dictionary
               <a href="https://www.edrdg.org/edrdg/licence.html" target="_blank" class="text-muted">(CC BY-SA 3.0 license)</a>
             </dd>
             
@@ -86,12 +89,12 @@ This code is a part of jamdict-web library: https://github.com/neocl/jamdict-web
             </dd>
             
             <dt class="col-sm-4"><a href="http://www.edrdg.org/wiki/index.php/Main_Page#The_KANJIDIC_Project" target="_blank">KANJIDIC</a></dt>
-            <dd class="col-sm-8">a comprehensive kanji database
+            <dd class="col-sm-8">A comprehensive kanji database
               <a href="https://www.edrdg.org/edrdg/licence.html" target="_blank" class="text-muted">(CC BY-SA 3.0 license)</a>
             </dd>
             
             <dt class="col-sm-4"><a href="https://pypi.org/project/igo-python/" target="_blank">Igo-python</a></dt>
-            <dd class="col-sm-8">a Python port of Igo Japanese morphological analyzer
+            <dd class="col-sm-8">A Python port of Igo Japanese morphological analyzer
               <span class="text-muted">(MIT License)</span>
             </dd>
             
@@ -101,7 +104,7 @@ This code is a part of jamdict-web library: https://github.com/neocl/jamdict-web
             </dd>
             
             <dt class="col-sm-4"><a href="https://pypi.org/project/jaconv/" target="_blank">jaconv</a></dt>
-            <dd class="col-sm-8">interconverter for Hiragana, Katakana, Hankaku (half-width character) and Zenkaku (full-width character)
+            <dd class="col-sm-8">Interconverter for Hiragana, Katakana, Hankaku (half-width character) and Zenkaku (full-width character)
               <span class="text-muted">(MIT License)</span>
             </dd>
             
@@ -111,9 +114,44 @@ This code is a part of jamdict-web library: https://github.com/neocl/jamdict-web
             </dd>
             
             <dt class="col-sm-4"><a href="https://vuejs.org" target="_blank">Vue.js 2.6</a></dt>
-            <dd class="col-sm-8">open-source front end JavaScript framework
+            <dd class="col-sm-8">Open-source front end JavaScript framework
               <span class="text-muted">(MIT License)</span>
             </dd>
+
+            <dt class="col-sm-4"><a href="https://fontawesome.com/" target="_blank">Font Awesome 5.14</a></dt>
+            <dd class="col-sm-8">Free icon pack
+              <a href="https://fontawesome.com/license" target="_blank" class="text-muted">(Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)</a>
+            </dd>
+          </dl>
+        </div>
+        <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  <!-- About end -->
+
+  <!-- Help modal -->
+  <div class="modal fade" id="helpModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="helpModalLabel">Help</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3>Useful shortcuts</h3>
+          <dl class="row my-2">
+
+            <dt class="col-sm-4">Shift + Enter</dt>
+            <dd class="col-sm-8">Parse input text</dd>
+
+            <dt class="col-sm-4">Shift + Esc</dt>
+            <dd class="col-sm-8">Clear input text</dd>
+            
           </dl>
         </div>
         <div class="modal-footer">
@@ -122,24 +160,34 @@ This code is a part of jamdict-web library: https://github.com/neocl/jamdict-web
       </div>
     </div>
   </div>
-  <!-- About end -->
-  
+  <!-- Help end -->
   
   <div>
     <div class="row align-items-start my-2">
       <div class="col-sm-12 col-md-7 align-items-start">
-        <!-- <nav>
-             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-             <a class="nav-item nav-link active" id="nav-input-tab" data-toggle="tab" href="#nav-input" role="tab" aria-controls="nav-input" aria-selected="true">Input</a>
-             <a class="nav-item nav-link" id="nav-results-tab" data-toggle="tab" href="#nav-results" role="tab" aria-controls="nav-results" aria-selected="false">Results</a>
-             </div>
-             </nav> -->
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-input" role="tabpanel" aria-labelledby="nav-input-tab">
-            <textarea id="text" name="text" style="width:100%;" rows="12" v-model="text"></textarea>
-            <br/>
-            <input class="btn btn-primary btn-sm" type="button" value="Help me read" @click="parse"></input>
+        <nav class="col">
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-input-tab" data-toggle="tab" href="#nav-input" role="tab" aria-controls="nav-input" aria-selected="true">Input</a>
+            <a class="nav-item nav-link" id="nav-results-tab" data-toggle="tab" href="#nav-results" role="tab" aria-controls="nav-results" aria-selected="false">Results</a>
           </div>
+        </nav>
+        
+        <div class="tab-content" id="nav-tabContent">
+          <!-- parse tab -->
+          <div class="tab-pane fade show active" id="nav-input" role="tabpanel" aria-labelledby="nav-input-tab">
+            <div class="row">
+              <div class="col">
+                <textarea id="text" name="text" style="width:100%;" rows="13"
+                          @keyup.enter.shift="parse"
+                          @keyup.esc.shift="text=''"
+                          v-model="text"></textarea>
+                <br/>
+                <input class="btn btn-primary btn-sm" type="button" value="Help me read" @click="parse"></input>
+                <input class="btn btn-secondary btn-sm" type="button" value="Clear" @click="text=''"></input>                
+              </div>
+            </div>
+          </div>
+          <!-- result tab -->
           <div class="tab-pane fade" id="nav-results" role="tabpanel" aria-labelledby="nav-results-tab">
             <div v-if="sents && sents.length > 0">
               <div v-for="sent in sents" class="d-flex align-content-start flex-wrap">
