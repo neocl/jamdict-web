@@ -305,6 +305,18 @@ This code is a part of jamdict-web library: https://github.com/neocl/jamdict-web
        wordlist: [],
        wordmap: {}
      },
+     watch: {
+       romaji: function(newValue, oldValue){
+         if (newValue && app.furigana) {
+           app.furigana = false;
+         }
+       },
+       furigana: function(newValue, oldValue) {
+         if (newValue && app.romaji) {
+           app.romaji = false;
+         }
+       }
+     },
      methods: {
        parse: function() {
          var text = app.text;
