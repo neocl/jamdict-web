@@ -106,6 +106,10 @@ def jamdict_search(request, query=None, strict=None):
     if not results.entries and not results.chars and not results.names:
         query = jaconv.alphabet2kana(query)
         results = jam.lookup(query, strict_lookup=strict)
+    # try kata also
+    if not results.entries and not results.chars and not results.names:
+        query = jaconv.alphabet2kata(query)
+        results = jam.lookup(query, strict_lookup=strict)
     result_dict = results.to_dict()
     # simplify POS
     for entry in result_dict['entries']:
