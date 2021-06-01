@@ -30,7 +30,9 @@ python manage.py runserver
 
 ## Credit
 
-**Jamdict-web / Japanese Reading Assistant** was developed by [Le Tuan Anh](https://github.com/letuananh) using the following products:
+**Jamdict-web / Japanese Reading Assistant** was developed by [Le Tuan Anh](https://github.com/letuananh) and released under MIT License.
+
+The following products were used in the development:
 
 [Jamdict](https://github.com/neocl/jamdict): Japanese dictionary package for Python 3 (MIT License)
 
